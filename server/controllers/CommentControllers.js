@@ -14,19 +14,14 @@ exports.createComment = async(req, res) => {
         const user = req.user.id;
         const postId = req.params.id;
         
-        const existingPost = await Post.findById(postId);
-        if(!existingPost) {
-            return res.status(404).json({
-                success:false,
-                message:"Post not found"
-            });
-        }
-        
-        await Comment.create({content, user, postId});
+        const newComment = await Comment.create({content, user, post:postId});
+
+        await Post.findByIdAndUpdate(postId, { $push: { comments: newComment._id } }, { new: true });
 
         return res.status(200).json({
             success:true,
-            message:"Comment created successfully"
+            message:"Comment created successfully",
+            comment:newComment
         });
     }
     catch(error) {
@@ -47,11 +42,30 @@ exports.deleteComment = async(req, res) => {
             });
         }
 
-        await Comment.deleteOne({_id: commentId, user: req.user.id});
+        const comment = await Comment.findById(commentId);
+        if(!comment) {
+            return res.status(400).json({
+                success:false,
+                message:"Can't find the comment to be deleted"
+            });
+        }
+
+        if(comment.user.toString() !== req.user.id) {
+            return res.status(403).json({
+                success:false,
+                message:"You are not authorized to delete this comment"
+            });
+        }
+
+        await Comment.deleteOne({_id: commentId});
+
+        const updatedPost = await Post.findByIdAndUpdate(comment.post, { $pull: { comments: comment._id } }, { new: true });
+
 
         return res.status(200).json({
             success:true,
-            message:"Comment deleted successfully"
+            message:"Comment deleted successfully",
+            updatedPost:updatedPost
         });
     }
     catch(error) {

@@ -3,12 +3,14 @@ const dbConnect = require('./config/database');
 require('dotenv').config();
 const userRoutes = require('./routers/User');
 const postRoutes = require('./routers/Post');
+const commentRoutes = require('./routers/Comment');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use('/api/v1', userRoutes);
 app.use('/api/v1', postRoutes);
+app.use('/api/v1', commentRoutes);
 
 dbConnect();
 

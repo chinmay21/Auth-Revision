@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: rgba(14, 53, 92, 1);
+  background-image: radial-gradient(
+    circle farthest-corner at 50% 52.5%,
+    rgba(14, 53, 92, 1) 0%,
+    rgba(16, 14, 72, 1) 90%
+  );
+}
+
+
+#root {
+  min-height: 100vh;
+}
