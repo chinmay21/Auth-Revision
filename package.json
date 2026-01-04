@@ -4,8 +4,10 @@
     "client": "cd src && npm run dev",
     "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"yellow,blue\" \"npm run server\" \"npm run client\""
   },
-
   "devDependencies": {
     "concurrently": "^9.2.1"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.11.0"
   }
 }
