@@ -73,3 +73,28 @@ exports.deletePost = async (req, res) => {
         })
     }
 }
+
+exports.fetchAllPosts = async (req, res) => {
+    try{
+        const posts = await Post.find({});
+        if(posts.length === 0) {
+            return res.status(404).json({
+                success:false,
+                message:"No posts found"
+            });
+        }
+
+        return res.status(200).json({
+            success:true,
+            message:"Posts fetched successfully",
+            posts
+        });
+    }
+    catch(error) {
+        console.log("Error fetching posts:", error);
+        return res.status(500).json({
+            success:false,
+            message:"Error while fetching the posts"
+        });
+    }
+}
