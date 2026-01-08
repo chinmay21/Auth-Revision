@@ -1,4 +1,12 @@
+@font-face {
+  font-family: orbitron;
+  src: url('../src//assets//fonts/Orbitron-SemiBold.ttf');
+}
 @import "tailwindcss";
+
+@theme {
+  --font-orbitron: orbitron, "sans-serif"
+}
 
 html,
 body {
