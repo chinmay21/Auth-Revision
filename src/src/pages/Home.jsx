@@ -5,14 +5,13 @@ import firstCard from '../assets/images/classroom-adult-teacher-holding-pointer-
 import secondCard from '../assets/images/student-man-with-glasses-and-bag-character-cartoon-people-student-university-free-vector-removebg-preview.png'
 import thirdCard from '../assets/images/happy-students-group-illustration-vector-removebg-preview.png'
 import fourthCard from '../assets/images/ab908510af9b6facbf2c230b84e922f0-removebg-preview.png'
-
 const Home = () => {
   return (
     <div>
     {/* Parent div of whole page */}
         <div className='lg:h-screen lg:w-screen'>
         {/* Parent div of Hero Section */}
-            <div className='lg:h-screen lg:w-screen flex flex-col items-center gap-y-5'>
+            <div className='lg:h-screen lg:w-screen flex flex-col items-center -mb-10 gap-y-5'>
                 <div className='flex flex-row justify-between items-center lg:h-17.5 px-5 py-2 gap-x-4 mt-15 bg-amber-50 lg:w-137.5 rounded-2xl'>
                     <img src={logo} width={70} height={70} loading='lazy' alt='logo'/>
                     <button className='text-lg text-gray-800 hover:bg-[#EDE8E8] transition-all ease-in lg:w-37.5 lg:h-11.25 rounded-2xl'>Home</button>
@@ -26,7 +25,7 @@ const Home = () => {
             </div>
 
             {/* Parent div of Cards section */}
-            <div className='flex flex-row w-[80%] mx-auto'>
+            <div className='flex flex-wrap justify-center gap-10 bg-amber-400'>
               <Card title={'Instructor Perspectives'} 
                     description={'Instructors share their individual ideas and thoughts on how education can evolve, improve, and better serve students.'}
                     imgSrc={firstCard}
