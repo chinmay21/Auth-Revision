@@ -8,8 +8,8 @@ import fourthCard from '../assets/images/ab908510af9b6facbf2c230b84e922f0-remove
 const Home = () => {
   return (
     <div>
-    {/* Parent div of whole page */}
-        <div className='lg:h-screen lg:w-screen'>
+      {/* Parent div of whole page */}
+      <div className='lg:h-screen lg:w-screen'>
         {/* Parent div of Hero Section */}
             <div className='lg:h-screen lg:w-screen flex flex-col items-center -mb-10 gap-y-5'>
                 <div className='flex flex-row justify-between items-center lg:h-17.5 px-5 py-2 gap-x-4 mt-15 bg-amber-50 lg:w-137.5 rounded-2xl'>
@@ -43,7 +43,25 @@ const Home = () => {
                     imgSrc={fourthCard}
               />
             </div>
-        </div>
+
+            {/* Parent div of footer section */}
+            <div>
+              <div className='flex flex-col lg:w-screen text-white'>
+                <div className='flex flex-col justify-center items-center font-orbitron'>
+                  <h2>Built for Ideas That Matter</h2>
+                  <p>A simple platform where instructors share perspectives and students contribute through discussion — because progress begins with conversation.</p>
+                  <button>
+                    <span>Join Now</span>
+                  </button>
+                </div>
+
+                <div className='flex'>
+                  <div></div>
+                  <div className='flex'></div>
+                </div>
+              </div>
+            </div>
+      </div>
     </div>
   )
 }
