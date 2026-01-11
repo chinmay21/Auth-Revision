@@ -1,11 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from '../assets/blogger-logo-icon-png-12.png'
 import Card from '../components/Card'
 import firstCard from '../assets/images/classroom-adult-teacher-holding-pointer-stick-flat-line-color-character-editable-outline-half-body-person-on-white-arab-male-instructor-simple-cartoon-spot-illustration-for-web-graphic-design-vector-r.png'
 import secondCard from '../assets/images/student-man-with-glasses-and-bag-character-cartoon-people-student-university-free-vector-removebg-preview.png'
 import thirdCard from '../assets/images/happy-students-group-illustration-vector-removebg-preview.png'
 import fourthCard from '../assets/images/ab908510af9b6facbf2c230b84e922f0-removebg-preview.png'
+import { FaInstagram } from "react-icons/fa";
+import { FaFacebook } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { useRef } from 'react'
 const Home = () => {
+
+  const footerRef = useRef(null);
+  const cardsRef = useRef(null);
+  const [active, setActive] = useState(false);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+        console.log(entry)
+        setActive(entry.isIntersecting);
+    }, { threshold:0 })
+
+
+    if(footerRef.current) {
+      observer.observe(footerRef.current);
+    }
+
+    return () => {
+      if(footerRef.current) {
+        observer.unobserve(footerRef.current);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if(!active) return;
+
+    const handleScroll = () => {
+      if(!footerRef.current) return;
+
+      const rect = footerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const rawProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+
+      const clamped = Math.min(Math.max(rawProgress, 0), 1);
+      setProgress(clamped);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [active]);
+
+  const scale = 0.8 + progress * 0.2;
+  const translateY = 80 - progress * 80
   return (
     <div>
       {/* Parent div of whole page */}
@@ -25,7 +75,7 @@ const Home = () => {
             </div>
 
             {/* Parent div of Cards section */}
-            <div className='flex flex-wrap justify-center gap-10 bg-amber-400'>
+            <div ref={cardsRef} className={`flex flex-wrap justify-center gap-10 bg-amber-400`}>
               <Card title={'Instructor Perspectives'} 
                     description={'Instructors share their individual ideas and thoughts on how education can evolve, improve, and better serve students.'}
                     imgSrc={firstCard}
@@ -45,19 +95,29 @@ const Home = () => {
             </div>
 
             {/* Parent div of footer section */}
-            <div>
+            <div ref={footerRef} className={`mt-30 lg:h-100 translateY`}
+            style={{
+              transform: `translateY(${translateY}px) scale(${scale})`
+            }}>
               <div className='flex flex-col lg:w-screen text-white'>
-                <div className='flex flex-col justify-center items-center font-orbitron'>
-                  <h2>Built for Ideas That Matter</h2>
-                  <p>A simple platform where instructors share perspectives and students contribute through discussion — because progress begins with conversation.</p>
-                  <button>
+                <div className='flex flex-col gap-10 justify-center items-center font-orbitron'>
+                  <h2 className='text-2xl'>Built for Ideas That Matter</h2>
+                  <p className='text-lg'>A simple platform where instructors share perspectives and students contribute through discussion — because progress begins with conversation.</p>
+                  <button className='bg-black p-4 px-5 rounded-xl hover:cursor-pointer mt-5'>
                     <span>Join Now</span>
                   </button>
                 </div>
 
-                <div className='flex'>
-                  <div></div>
-                  <div className='flex'></div>
+                <div className='w-screen flex justify-between px-20 mt-30'>
+                  <div className='flex items-center'>
+                    <img src={logo} loading='lazy' alt='Logo' width={100} height={100}/>
+                    <h2 className='text-2xl'>discover</h2>
+                  </div>
+                  <div className='flex items-center justify-around gap-x-5'>
+                    <FaInstagram className='h-10 w-10'/>
+                    <FaFacebook className='h-10 w-10'/>
+                    <FaLinkedin className='h-10 w-10'/>
+                  </div>
                 </div>
               </div>
             </div>
