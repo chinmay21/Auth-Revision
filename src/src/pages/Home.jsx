@@ -20,7 +20,7 @@ const Home = () => {
     const observer = new IntersectionObserver(([entry]) => {
         console.log(entry)
         setActive(entry.isIntersecting);
-    }, { threshold:0 })
+    }, { threshold:0.5 })
 
 
     if(footerRef.current) {
@@ -43,9 +43,11 @@ const Home = () => {
       const rect = footerRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
 
-      const rawProgress = (windowHeight - rect.top) / (windowHeight + rect.height);
+      const rawProgress = ((windowHeight - rect.top) / (windowHeight + rect.height)) * 0.5;
+
 
       const clamped = Math.min(Math.max(rawProgress, 0), 1);
+      console.log('THIS IS RAW:', clamped);
       setProgress(clamped);
     };
 
@@ -54,8 +56,9 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [active]);
 
-  const scale = 0.8 + progress * 0.2;
-  const translateY = 80 - progress * 80
+  const scale = 0.75 + progress * 0.30;
+
+  const translateY = -100 * progress;
   return (
     <div>
       {/* Parent div of whole page */}
@@ -75,7 +78,7 @@ const Home = () => {
             </div>
 
             {/* Parent div of Cards section */}
-            <div ref={cardsRef} className={`flex flex-wrap justify-center gap-10 bg-amber-400`}>
+            <div ref={cardsRef} className={`flex flex-wrap justify-center gap-10 bg-amber-400 relative z-20`}>
               <Card title={'Instructor Perspectives'} 
                     description={'Instructors share their individual ideas and thoughts on how education can evolve, improve, and better serve students.'}
                     imgSrc={firstCard}
@@ -95,10 +98,10 @@ const Home = () => {
             </div>
 
             {/* Parent div of footer section */}
-            <div ref={footerRef} className={`mt-30 lg:h-100 translateY`}
+            <div ref={footerRef} className={`lg:h-100 relative z-10 transition-all ease-in`}
             style={{
-              transform: `translateY(${translateY}px) scale(${scale})`
-            }}>
+              transform: `translateY(${translateY}px) scale(${scale})`}}
+            >
               <div className='flex flex-col lg:w-screen text-white'>
                 <div className='flex flex-col gap-10 justify-center items-center font-orbitron'>
                   <h2 className='text-2xl'>Built for Ideas That Matter</h2>
