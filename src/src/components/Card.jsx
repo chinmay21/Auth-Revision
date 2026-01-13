@@ -3,7 +3,7 @@ import React from 'react'
 const Card = ({title, description, imgSrc}) => {
   return (
     // Parent div of card
-        <div className='flex-none flex flex-col items-center justify-between bg-white
+        <div className='flex-none flex flex-col items-center justify-between bg-[#E6EEF7]
                         lg:h-170 lg:w-[35%] -translate-y-25 px-14 py-10 font-orbitron rounded-xl
                         hover:scale-105 cursor-pointer hover:shadow-neutral-200 hover:shadow-lg
                         transition-all ease-in-out'>
