@@ -8,6 +8,15 @@
   --font-orbitron: orbitron, "sans-serif"
 }
 
+@font-face {
+  font-family: zalando;
+  src: url('../src/assets/fonts/ZalandoSansExpanded-Bold.ttf');
+}
+
+@theme {
+  --font-zalando: zalando, "sans-serif"
+}
+
 html,
 body {
     overflow-x: hidden;
