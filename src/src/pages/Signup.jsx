@@ -31,15 +31,26 @@ const Signup = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col max-h-260 gap-y-5'>
                 <label htmlFor='name'>Username</label>
-                <input type='text' placeholder='Enter Username' className='pl-2 border border-gray-500 rounded-md h-8.75 w-100 outline-none focus-visible:text-[#000080] focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:shadow-indigo-400 focus-visible:shadow-lg transition-all ease-in' {...register("name", {required: "Username is Required, Please Enter Username"})}/>
+                <input type='text' placeholder='Enter Username' 
+                className='pl-2 border border-gray-500 rounded-md h-8.75 w-100 outline-none focus-visible:text-[#000080] 
+                focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:shadow-indigo-400 focus-visible:shadow-lg 
+                transition-all ease-in' 
+                {...register("name", {required: "Username is Required, Please Enter Username"})}/>
                 {errors.name && <span className='text-red-600'>{errors.name.message}</span>}
                 
                 <label htmlFor='email'>Email Address</label>
-                <input type='email' placeholder='Enter Email' className='pl-2 border border-gray-500 rounded-md h-8.75 w-100 outline-none focus-visible:text-[#000080] focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:shadow-indigo-400 focus-visible:shadow-lg transition-all ease-in' {...register("email", {required: "Email is Required, Please Enter Email"})}/>
+                <input type='email' placeholder='Enter Email' 
+                className='pl-2 border border-gray-500 rounded-md h-8.75 w-100 outline-none focus-visible:text-[#000080] 
+                focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:shadow-indigo-400 focus-visible:shadow-lg 
+                transition-all ease-in' 
+                {...register("email", {required: "Email is Required, Please Enter Email"})}/>
                 {errors.email && <span className='text-red-600'>{errors.email.message}</span>}
 
                 <label htmlFor='password'>Password</label>
-                <input type='password' placeholder='Enter Password' className='pl-2 border border-gray-500 rounded-md h-8.75 w-100 outline-none focus-visible:text-[#000080] focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:shadow-indigo-400 focus-visible:shadow-lg transition-all ease-in' {...register("password", {required: "Password is Required, Please Enter Password"})}/>
+                <input type='password' placeholder='Enter Password' className='pl-2 border border-gray-500 rounded-md h-8.75 w-100 
+                outline-none focus-visible:text-[#000080] focus-visible:ring-2 focus-visible:ring-indigo-400 
+                focus-visible:shadow-indigo-400 focus-visible:shadow-lg transition-all ease-in' 
+                {...register("password", {required: "Password is Required, Please Enter Password"})}/>
                 {errors.password && <span className='text-red-600'>{errors.password.message}</span>}
                 
                 <label htmlFor="role">Select a Role</label>
@@ -55,7 +66,11 @@ const Signup = () => {
                     className={`cursor-pointer bg-[#191970] py-2 px-4 rounded-full ${active === 'instructor' ? "transition-all ease-in delay-75" 
                     : "bg-transparent"}`}>Instructor</button>
                 </div>
-                <button onClick={clickHandler} type='submit' className='bg-linear-to-r from-[#e3ffe7] to-[#d9e7ff] mt-8 py-2 rounded-lg cursor-pointer hover:shadow-xl hover:shadow-indigo-200 transition-all ease hover:scale-105 delay-100'>Register</button>
+                <button onClick={clickHandler} type='submit' 
+                className='bg-linear-to-r from-[#e3ffe7] to-[#d9e7ff] mt-8 py-2 rounded-lg cursor-pointer 
+                hover:shadow-xl hover:shadow-indigo-200 transition-all ease hover:scale-105 delay-100'>
+                    Register
+                </button>
             </form>
 
             <div className=' text-sm'>
