@@ -68,13 +68,13 @@ const Signup = () => {
                 </div>
                 <button onClick={clickHandler} type='submit' 
                 className='bg-linear-to-r from-[#e3ffe7] to-[#d9e7ff] mt-8 py-2 rounded-lg cursor-pointer 
-                hover:shadow-xl hover:shadow-indigo-200 transition-all ease hover:scale-105 delay-100'>
+                hover:shadow-xl hover:shadow-indigo-200 text-indigo-400 font-semibold transition-all ease hover:scale-105 delay-100'>
                     Register
                 </button>
             </form>
 
-            <div className=' text-sm'>
-                Already have an account? <a href='/login' className='text-sm underline text-blue-500'>Login</a>
+            <div className='text-sm'>
+                Already have an account? <a href='/login' className='underline text-blue-500'>Login</a>
             </div>
         </div>
     </div>
