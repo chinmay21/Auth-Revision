@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
+import { signup } from '../redux/operations/authAPI'
 
 const Signup = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [active, setActive] = useState('student');
     const [role, setRole] = useState("");
+    const dispatch = useDispatch();
 
     const handleRoleSelect = (selectedRole) => {
         setRole(selectedRole);
@@ -17,8 +20,16 @@ const Signup = () => {
         return console.log("REGITER BUTTON IS CLICKED");
     }
     const onSubmit = (data) => {
-        return console.log("THIS IS DATA:", data);
-    }
+        dispatch(
+            signup({
+                name: data.name,
+                email: data.email,
+                password: data.password,
+                role: data.role
+            })
+        );
+    };
+    
     console.log("THIS IS ROLE:", role);
   return (
     <div>
