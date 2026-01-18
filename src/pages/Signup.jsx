@@ -2,23 +2,21 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { signup } from '../redux/operations/authAPI'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Signup = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const [active, setActive] = useState('student');
-    const [role, setRole] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleRoleSelect = (selectedRole) => {
-        setRole(selectedRole);
         setActive(selectedRole.toLowerCase());
         setValue("role", selectedRole, { shouldValidate: true });
     };
 
-    const clickHandler = () => {
-        return console.log("REGITER BUTTON IS CLICKED");
-    }
     const onSubmit = (data) => {
         dispatch(
             signup({
@@ -27,10 +25,17 @@ const Signup = () => {
                 password: data.password,
                 role: data.role
             })
-        );
+        )
+        .unwrap()
+        .then(() => {
+            toast.success("Signed up successfully");
+            navigate('/login');
+        })
+        .catch((error) => {
+            toast.error(`Error while Signing Up: ${error}`);
+            console.log("Signup failed:", error);
+        })
     };
-    
-    console.log("THIS IS ROLE:", role);
   return (
     <div>
         {/* Parent div of signup from */}
@@ -77,7 +82,7 @@ const Signup = () => {
                     className={`cursor-pointer bg-[#191970] py-2 px-4 rounded-full ${active === 'instructor' ? "transition-all ease-in delay-75" 
                     : "bg-transparent"}`}>Instructor</button>
                 </div>
-                <button onClick={clickHandler} type='submit' 
+                <button type='submit' 
                 className='bg-linear-to-r from-[#e3ffe7] to-[#d9e7ff] mt-8 py-2 rounded-lg cursor-pointer 
                 hover:shadow-xl hover:shadow-indigo-200 text-indigo-400 font-semibold transition-all ease hover:scale-105 delay-100'>
                     Register

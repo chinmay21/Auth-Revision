@@ -1,14 +1,34 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { MdWavingHand } from "react-icons/md";
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/operations/authAPI';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import loginImg from '../assets/images/loginImg.png'
 
 const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onSubmit = (data) => {
-        return console.log("THIS IS DATA:", data);
+        dispatch(
+            login({
+                email: data.email,
+                password: data.password
+            })
+        )
+        .unwrap()
+        .then(() => {
+            toast.success("Logged in successfully");
+            navigate('/dashboard');
+        })
+        .catch((error) => {
+            toast.error(`Error while logging in: ${error}`);
+            console.log("Login failed:", error);
+        })
     }
   return (
     <div>
