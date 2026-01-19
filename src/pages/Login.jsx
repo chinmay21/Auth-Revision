@@ -21,9 +21,19 @@ const Login = () => {
             })
         )
         .unwrap()
-        .then(() => {
+        .then((res) => {
             toast.success("Logged in successfully");
-            navigate('/dashboard');
+            
+            const role = res.user.role.toLowerCase();
+            if(role === "student") {
+                navigate("/dashboard/student");
+            }
+            else if(role === "instructor") {
+                navigate("/dashboard/instructor");
+            }
+            else {
+                navigate("/dashboard");
+            }
         })
         .catch((error) => {
             toast.error(`Error while logging in: ${error}`);
