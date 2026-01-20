@@ -4,3 +4,9 @@ export const endpoints = {
     SIGNUP_API: BASE_URL + "/auth/signup",
     LOGIN_API: BASE_URL + "/auth/login"
 }
+
+export const postEndpoints = {
+    FETCH_ALL_POSTS_API: BASE_URL + "/posts/getAllPosts",
+    CREATE_POST_API: BASE_URL + "/posts",
+    DELETE_POST_API: BASE_URL + "/posts/:id"
+}

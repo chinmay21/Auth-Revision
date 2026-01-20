@@ -6,8 +6,8 @@ import Home from './pages/Home'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import ProtectedRoute from './components/auth/ProtectedRoute'
-import StudentDashboard from './pages/StudentDashboard'
-import InstructorDashboard from './pages/InstructorDashboard'
+import StudentDashboard from './pages/dashboard/StudentDashboard'
+import InstructorDashboard from './pages/dashboard/InstructorDashboard'
 import AuthRedirect from './components/auth/AuthRedirect'
 
 function App() {
