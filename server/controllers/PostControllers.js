@@ -76,7 +76,10 @@ exports.deletePost = async (req, res) => {
 
 exports.fetchAllPosts = async (req, res) => {
     try{
-        const posts = await Post.find({});
+        const posts = await Post.find({})
+                            .populate("user", "name email")
+                            .populate("comments")
+                            .exec();
         if(posts.length === 0) {
             return res.status(404).json({
                 success:false,

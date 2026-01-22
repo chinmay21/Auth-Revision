@@ -16,7 +16,7 @@ const StudentDashboard = () => {
   if(loading) return <p>Loading...</p>
   
   return (
-    <div className='flex flex-col gap-3'>
+    <div className='flex flex-col gap-3 bg-indigo-300 lg:w-[95%] mx-auto rounded-2xl mt-5 lg:min-h-175 justify-evenly'>
       {
         posts.map(post => (
           <PostCard key={post._id} post={post}/>
