@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
+const User = require('../models/User');
 
 exports.createPost = async (req, res) => {
     try{
@@ -18,12 +19,13 @@ exports.createPost = async (req, res) => {
             });
         }
 
-        const result = await Post.create({title, content, user});
+        const post = await Post.create({title, content, user});
+        await User.findByIdAndUpdate(user, { $push: { posts: post._id } }, { new: true });
 
         return res.status(200).json({
             success:true,
             message:"Post created Successfully",
-            result
+            post
         })
     }
     catch(error) {
@@ -56,6 +58,8 @@ exports.deletePost = async (req, res) => {
         }
 
         await Comment.deleteMany({post: post});
+
+        await User.findByIdAndUpdate(user, { $pull: { posts: post._id } }, { new: true });
 
         await Post.findByIdAndDelete(post);
 

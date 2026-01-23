@@ -10,3 +10,8 @@ export const postEndpoints = {
     CREATE_POST_API: BASE_URL + "/posts",
     DELETE_POST_API: BASE_URL + "/posts/:id"
 }
+
+export const commentEndpoints = {
+    CREATE_COMMENT_API: BASE_URL + '/post/:postId/comment',
+    DELETE_COMMENT_API: BASE_URL + '/comment/:id'
+}
