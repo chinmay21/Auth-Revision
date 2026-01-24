@@ -11,6 +11,8 @@ export const fetchAllPosts = createAsyncThunk('post/fetchAllPosts', async (_, th
 
         thunkApi.dispatch(setPosts(response.data.posts));
 
+        console.log(response.data);
+
         return response.data;
     }
     catch(error) {

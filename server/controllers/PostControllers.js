@@ -82,7 +82,13 @@ exports.fetchAllPosts = async (req, res) => {
     try{
         const posts = await Post.find({})
                             .populate("user", "name email")
-                            .populate("comments")
+                            .populate({
+                                path:"comments",
+                                populate: {
+                                    path:"user",
+                                    select:"name"
+                                }
+                            })
                             .exec();
         if(posts.length === 0) {
             return res.status(404).json({
