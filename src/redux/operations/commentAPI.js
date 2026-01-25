@@ -17,3 +17,21 @@ export const createComment = createAsyncThunk(
     }
   }
 );
+
+export const deleteComment = createAsyncThunk(
+  "comment/delete",
+  async (commentId, thunkAPI) => {
+    try {
+      const response = await apiConnector(
+        "DELETE",
+        commentEndpoints.DELETE_COMMENT_API.replace(":commentId", commentId)
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Failed to delete comment"
+      );
+    }
+  }
+);
+

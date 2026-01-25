@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from 'react-toastify';
-import { createComment } from '../../redux/operations/commentAPI';
+import { createComment, deleteComment } from '../../redux/operations/commentAPI';
 import { FaArrowCircleUp } from "react-icons/fa";
 
 const PostCard = ({ post }) => {
@@ -23,6 +23,10 @@ const PostCard = ({ post }) => {
     toast.success("Comment added successfully");
   };
 
+  const handleDeleteComment = (commentId) => {
+    dispatch(deleteComment(commentId));
+    toast.success("Comment deleted");
+  };
   const visibleComments = showAllComments
     ? post.comments
     : post.comments.slice(0, 1);
@@ -48,6 +52,7 @@ const PostCard = ({ post }) => {
                       > 
                         <p>{comment.content}</p>
                         <span>By {comment.user?.name}</span>
+                        <button onClick={() => handleDeleteComment(comment._id)} className='ml-5 cursor-pointer'>Delete Comment</button>
                       </div>
                     ))}
 
