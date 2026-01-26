@@ -48,10 +48,12 @@ const PostCard = ({ post }) => {
                     {visibleComments.map((comment) => (
                       <div
                       key={comment._id}
-                      className=''
+                      className='flex flex-col gap-3 items-center'
                       > 
-                        <p>{comment.content}</p>
-                        <span>By {comment.user?.name}</span>
+                        <div className='flex gap-2'>
+                          <p>{comment.content}</p>
+                          <span>-By {comment.user?.name}</span>
+                        </div>
                         <button onClick={() => handleDeleteComment(comment._id)} className='ml-5 cursor-pointer'>Delete Comment</button>
                       </div>
                     ))}
@@ -60,7 +62,7 @@ const PostCard = ({ post }) => {
                     {post.comments.length > 1 && !showAllComments && (
                       <p
                       onClick={() => setShowAllComments(true)}
-                      className='cursor-pointer'
+                      className='cursor-pointer text-center ml-5'
                       >
                         Show all comments ({post.comments.length})
                       </p>
