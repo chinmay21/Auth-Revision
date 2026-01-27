@@ -26,7 +26,10 @@ export const deleteComment = createAsyncThunk(
         "DELETE",
         commentEndpoints.DELETE_COMMENT_API.replace(":commentId", commentId)
       );
-      return response.data;
+      return {
+        commentId,
+        postId: response.data.postId,
+      };
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || "Failed to delete comment"

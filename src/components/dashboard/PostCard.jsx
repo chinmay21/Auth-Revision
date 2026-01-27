@@ -1,17 +1,23 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux"
 import { toast } from 'react-toastify';
 import { createComment, deleteComment } from '../../redux/operations/commentAPI';
 import { FaArrowCircleUp } from "react-icons/fa";
 
-const PostCard = ({ post }) => {
+const PostCard = ({ postId }) => {
+  const post = useSelector(state => state.post.posts.find((p) => p._id === postId));
   const autoGrow = (e) => {
   e.target.style.height = "auto";
   e.target.style.height = e.target.scrollHeight + "px";
 };
   const [commentText, setCommentText] = useState("");
   const [showAllComments, setShowAllComments] = useState(false);
+  useEffect(() => {
+    if (post.comments.length <= 1) {
+      setShowAllComments(false);
+    }
+  }, [post.comments.length]);
   const dispatch = useDispatch();
 
   const clickHandler = () => {
@@ -25,8 +31,10 @@ const PostCard = ({ post }) => {
 
   const handleDeleteComment = (commentId) => {
     dispatch(deleteComment(commentId));
+    setShowAllComments(false);
     toast.success("Comment deleted");
   };
+
   const visibleComments = showAllComments
     ? post.comments
     : post.comments.slice(0, 1);
@@ -39,7 +47,7 @@ const PostCard = ({ post }) => {
             <span className='text-sm'>By {post.user.name}</span>
 
             {/* Comments */}
-            <div>
+            <div className='flex flex-col gap-3'>
               {
                 post.comments.length === 0 ? (
                   <p>No comments yet</p>
@@ -48,13 +56,13 @@ const PostCard = ({ post }) => {
                     {visibleComments.map((comment) => (
                       <div
                       key={comment._id}
-                      className='flex flex-col gap-3 items-center'
+                      className='flex gap-3 items-center'
                       > 
                         <div className='flex gap-2'>
                           <p>{comment.content}</p>
                           <span>-By {comment.user?.name}</span>
                         </div>
-                        <button onClick={() => handleDeleteComment(comment._id)} className='ml-5 cursor-pointer'>Delete Comment</button>
+                        <button onClick={() => handleDeleteComment(comment._id)} className='cursor-pointer text-[#FCC27B] font-semibold'>Delete Comment</button>
                       </div>
                     ))}
 

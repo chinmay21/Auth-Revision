@@ -16,12 +16,14 @@ exports.createComment = async(req, res) => {
         
         const newComment = await Comment.create({content, user, post:postId});
 
+        const populatedComment = await newComment.populate("user", "name");
+
         await Post.findByIdAndUpdate(postId, { $push: { comments: newComment._id } }, { new: true });
 
         return res.status(200).json({
             success:true,
             message:"Comment created successfully",
-            comment:newComment
+            comment:populatedComment
         });
     }
     catch(error) {
@@ -65,7 +67,8 @@ exports.deleteComment = async(req, res) => {
         return res.status(200).json({
             success:true,
             message:"Comment deleted successfully",
-            updatedPost:updatedPost
+            updatedPost:updatedPost,
+            postId: comment.post,
         });
     }
     catch(error) {
