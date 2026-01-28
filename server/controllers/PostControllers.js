@@ -116,7 +116,15 @@ exports.fetchUserPosts = async (req, res) => {
     try{
         const userId = req.user.id;
 
-        const user = await User.findById(userId).populate("posts").exec();
+        const user = await User.findById(userId)
+                           .populate("posts")
+                           .populate({
+                            path:"posts",
+                            populate:{
+                                path:"user",
+                                select:"name"
+                            }
+                           });
 
         if(!user) {
             return res.status(404).json({

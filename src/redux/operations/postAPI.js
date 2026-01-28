@@ -47,7 +47,7 @@ export const fetchUserPosts = createAsyncThunk("post/fetchUserPosts", async (_, 
 
         const response = await apiConnector("GET", postEndpoints.FETCH_USER_POSTS_API);
 
-        thunkApi.dispatch(setPosts(response.data));
+        thunkApi.dispatch(setPosts(response.data.posts));
 
         return response.data;
     }
