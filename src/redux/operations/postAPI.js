@@ -40,3 +40,21 @@ export const createPost = createAsyncThunk("post/create", async({title, content}
         thunkApi.dispatch(setLoading(false));
     }
 });
+
+export const fetchUserPosts = createAsyncThunk("post/fetchUserPosts", async (_, thunkApi) => {
+    try{
+        thunkApi.dispatch(setLoading(true));
+
+        const response = await apiConnector("GET", postEndpoints.FETCH_USER_POSTS_API);
+
+        thunkApi.dispatch(setPosts(response.data));
+
+        return response.data;
+    }
+    catch(error) {
+        return thunkApi.rejectWithValue(error.response?.data?.message || "Failed to fetch user posts");
+    }
+    finally{
+        thunkApi.dispatch(setLoading(false));
+    }
+});
