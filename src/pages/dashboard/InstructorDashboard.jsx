@@ -17,7 +17,7 @@ const InstructorDashboard = () => {
     <div>
       {
         posts.map(post => (
-          <InstructorPostCard key={post._id} post={post}/>
+          <InstructorPostCard key={post._id} postId={post._id}/>
         ))
       }
     </div>
