@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createComment, deleteComment } from "../operations/commentAPI";
+import { createPost } from "../operations/postAPI";
 
 const initialState = {
     posts:[],
@@ -27,6 +28,12 @@ const postSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+
+            .addCase(createPost.fulfilled, (state, action) => {
+                state.posts.unshift(action.payload);
+                state.post = action.payload;
+            })
+
             .addCase(createComment.fulfilled, (state, action) => {
                 const newComment = action.payload.comment;
 
@@ -53,9 +60,9 @@ const postSlice = createSlice({
                 }
 
                 if(state.selectedPost?._id === postId) {
-                    state.selectedPost.comments = state.selectedPost.comment.filter(c => c._id !== commentId);
+                    state.selectedPost.comments = state.selectedPost.comments.filter(c => c._id !== commentId);
                 }
-            });
+            })
     }
 });
 

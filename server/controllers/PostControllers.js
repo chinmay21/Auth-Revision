@@ -21,11 +21,12 @@ exports.createPost = async (req, res) => {
 
         const post = await Post.create({title, content, user});
         await User.findByIdAndUpdate(user, { $push: { posts: post._id } }, { new: true });
+        const populatedPost = await Post.findById(post._id).populate("user", "name").exec();
 
         return res.status(200).json({
             success:true,
             message:"Post created Successfully",
-            post
+            post: populatedPost
         })
     }
     catch(error) {
@@ -119,6 +120,7 @@ exports.fetchUserPosts = async (req, res) => {
         const user = await User.findById(userId)
                            .populate("posts")
                            .populate({
+                            options: { sort: { createdAt: -1 } },
                             path:"posts",
                             populate:{
                                 path:"user",

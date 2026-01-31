@@ -28,11 +28,14 @@ const InstructorDashboard = () => {
     <div>
       {
         posts.map(post => (
-          <InstructorPostCard key={post._id} postId={post._id}/>
+          <InstructorPostCard key={post._id} post={post}/>
         ))
       }
       <>
-        <button onClick={handleOpen} className='text-red-600 lg:-translate-y-763.5 lg:translate-x-320 cursor-pointer'>Create Post</button>
+        <button onClick={handleOpen} className='text-indigo-700 w-50 bg-[#CDAC79] py-2 rounded-lg hover:shadow-lg
+         hover:shadow-blue-200 transition-all ease-in hover:scale-105 delay-100 font-semibold fixed top-10 left-300 cursor-pointer'>
+          Create Post
+        </button>
         <CreatePostModal isOpen={open} onClose={handleClose}/>
       </>
     </div>

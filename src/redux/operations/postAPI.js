@@ -29,9 +29,9 @@ export const createPost = createAsyncThunk("post/create", async({title, content}
 
         const response = await apiConnector("POST", postEndpoints.CREATE_POST_API, {title, content});
 
-        thunkApi.dispatch(setPost(response.data));
+        thunkApi.dispatch(setPost(response.data.post));
 
-        return response.data;
+        return response.data.post;
     }
     catch(error) {  
         return thunkApi.rejectWithValue(error.response?.data?.message || "Failed to create post");
